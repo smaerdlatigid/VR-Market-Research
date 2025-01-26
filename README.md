@@ -16,7 +16,7 @@ Code: `headset_base_projection.py`
 
 ## Hardware Projection from Steam Survey
 
-Gamers represent an ideal target audience for VR content. We can leverage the [Steam Hardware Survey](https://store.steampowered.com/hwsurvey/Steam-Hardware-Software-Survey-Welcome-to-Steam) to estimate the number of users who own VR hardware. The survey is conducted monthly and provides information on the hardware and software used by Steam users. The survey is voluntary and the results are published on the Steam website. Since the survey is voluntary, the results may not be representative of the entire Steam user base and as such introduces a bit of variance in the data.
+Gamers represent an ideal target audience for VR content. We can leverage the [Steam Hardware Survey](https://store.steampowered.com/hwsurvey/Steam-Hardware-Software-Survey-Welcome-to-Steam) to estimate the number of users who own VR hardware. The survey is conducted monthly and provides information on the hardware and software used by Steam users. Since the survey is voluntary, the results may not be representative of the entire Steam user base and as such introduces a bit of variance in the data.
 
 An example of the survey results is shown below:
 
@@ -26,7 +26,7 @@ If you expand the VR Headset row then you can see the percentage of users with h
 
 ![](data/2024-12.png)
 
-Another caveat with the hardware survey is that it only provides percentages of users with VR hardware and not the total number of users. To estimate the total number of users with VR hardware, we can use the [SteamDB](https://steamdb.info/charts/) to get the number of concurrent users on Steam. Past hardware results aren't available on Steam's website directly but you can look up snapshots of the website on the internet archive, https://web.archive.org/ .
+Another caveat with the hardware survey is that it only provides percentages of users with VR hardware and not the total number of users. To estimate the total number of users with VR hardware, we can use the [SteamDB](https://steamdb.info/charts/) to get the number of concurrent users on Steam and multiply it by the percentage with VR. Past hardware results aren't available on Steam's website directly but you can look up snapshots of the website on the internet archive, https://web.archive.org/ .
 
 We compile a few years of data from the web archive and fit a linear model to estimate the percentage of users with VR hardware into 2030.
 
@@ -63,7 +63,7 @@ users [million] = 2.72 * t + 16.60
 Each formula is relative to the year 2020 with `t` being years since. Combing each formula gives the total number of concurrent users with VR hardware.
 
 ```
-vr_users = vr_hardware[%] / 100 * users
+vr_users = (vr_hardware[%] / 100) * users
 
  = (0.015 * t + 1.978) / 100 * (2.72 * t + 16.60)
 
@@ -94,7 +94,7 @@ The number of users with VR hardware is expected to grow over time by a factor o
 | --- | --- | --- | --- |
 | Total VR users | 0.62M | [19.5M](https://www.roadtovr.com/meta-quest-2-monthly-active-users/) | [0.42M](https://www.macobserver.com/news/apple-vision-pro-sales-match-pre-launch-estimates/) |
 | Daily users | 0.06M | 1.95M | 0.04M |
-| Downloads | 3000 | 97,500 | 2000 |
+| Unique Downloads | 3000 | 97,500 | 2000 |
 | Subscriptions | 62 | 1950 | 40 |
 | Subscriptions after 1 year (churn) | 34 | 1050 | 22 |
 
